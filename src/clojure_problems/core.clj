@@ -39,3 +39,15 @@
          (empty? seq) '()
          (coll? x) (concat (flat x) (flat xs))
          :else (cons x (flat xs)))))'((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
+
+"Write a function which takes a string and returns a new string containing only the capital letters."
+(= ((fn [seq]
+      (apply str
+             (map char
+                  (filter #(and (<= 65 %) (<= % 90))
+                          (map int seq))))) "HeLlO, WoRlD!") "HLOWRD")
+
+"Write a function which removes consecutive duplicates from a sequence."
+(= (apply str ((fn [seq]
+                 (map first
+                      (partition-by identity seq))) "Leeeeeerrroyyy")) "Leroy")
