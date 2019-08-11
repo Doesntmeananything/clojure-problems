@@ -8,8 +8,8 @@
 
 "Write a function which returns the total number of elements in a sequence."
 (= (#(reduce
-      (fn [c _] (inc c))
-      0 %) '(1 2 3 3 1)) 5)
+       (fn [c _] (inc c))
+       0 %) '(1 2 3 3 1)) 5)
 
 "Write a function which reverses a sequence."
 (= ((fn [seq] (into '() seq)) [1 2 3 4 5]) [5 4 3 2 1])
@@ -37,8 +37,8 @@
       (let [[x & xs] seq]
         (cond
           (empty? seq) '()
-          (coll? x) (concat (flat x) (flat xs))
-          :else (cons x (flat xs))))) '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
+          (coll? x)    (concat (flat x) (flat xs))
+          :else        (cons x (flat xs))))) '((1 2) 3 [4 [5 6]])) '(1 2 3 4 5 6))
 
 "Write a function which takes a string and returns a new string containing only the capital letters."
 (= ((fn [seq]
@@ -54,3 +54,24 @@
 
 "Write a function which packs consecutive duplicates into sub-lists."
 (= ((fn [seq] (partition-by identity seq)) [1 1 2 1 1 1 3 3]) '((1 1) (2) (1 1 1) (3 3)))
+
+"Write a function which duplicates each element of a sequence."
+(= ((fn f [s]
+      (let [f*
+            (fn [acc s*]
+              (conj acc s* s*))]
+        (reduce f* [] s))) [1 2 3]) '(1 1 2 2 3 3))
+
+"Write a function which replicates each element of a sequence a variable number of times."
+(= ((fn f [s n]
+       (let [f*
+             (fn [acc s*]
+               (concat acc (repeat n s*)))]
+         (reduce f* [] s))) [1 2 3] 2) '(1 1 2 2 3 3))
+
+"Write a function which creates a list of all integers in a given range."
+(= ((fn [s e]
+      (loop [x s acc []]
+        (if (< x e)
+          (recur (inc x) (conj acc x))
+          acc))) 1 4) '(1 2 3))
