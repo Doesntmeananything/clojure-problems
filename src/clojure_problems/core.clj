@@ -21,10 +21,8 @@
 (= ((fn [seq] (filter odd? seq)) #{1 2 3 4 5}) '(1 3 5))
 
 "Write a function which returns the first X fibonacci numbers."
-(= ((fn [n] (take n
-                  ((fn fib-recur [a b]
-                     (cons a (lazy-seq (fib-recur b (+ a b))))) 1 1)) 8)
-    '(1 1 2 3 5 8 13 21)))
+(= ((fn [n] (take n ((fn fib-recur [a b] (cons a (lazy-seq (fib-recur b (+ a b))))) 1 1))) 8)
+   '(1 1 2 3 5 8 13 21))
 
 "Write a function which returns true if the given sequence is a palindrome."
 (true? ((fn [seq]
